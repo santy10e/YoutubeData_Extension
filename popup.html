@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Inspiraciones para Youtube</title>
+    <link rel="stylesheet" href="popup.css" />
+</head>
+
+<body>
+
+    <div class="panel">
+
+        <h2 class="heading">Inspiraciones para Youtube</h2>
+
+        <div id="video-meta" class="card">
+
+            <div class="thumb-row">
+                <img id="thumb-preview" />
+
+                <!-- <div class="thumb-actions">
+                    <button id="btn-maxres" disabled data-tip="Descargar miniatura MaxRes">MaxRes</button>
+                    <button id="btn-hq" disabled data-tip="Descargar miniatura HQ">HQ</button>
+                </div>
+                -->
+            </div>
+
+            <div class="meta-block">
+                <div class="label">Título</div>
+                <div id="meta-title" class="value"></div>
+            </div>
+
+            <div class="meta-block">
+                <div class="label">Canal</div>
+                <div id="meta-channel" class="value"></div>
+            </div>
+
+            <div class="meta-block">
+                <div class="label">Upload</div>
+                <div id="meta-date" class="value"></div>
+            </div>
+
+            <div>
+                <div class="keywords-row">
+                    <div class="label"></div>
+                    <button id="btn-copy-keywords"></button>
+                </div>
+            </div>
+
+            <hr class="divider">
+
+            <div id="keywords-list" class="keywords"></div>
+
+            <hr class="divider">
+
+            <div class="actions-footer">
+                <button id="btn-copy-meta">
+                    Copiar Keywords
+                </button>
+
+                <button id="btn-description">
+                    Ver Descripción
+                </button>
+
+                <button id="btn-tech">
+                    Ver Metadata Técnica
+                </button>
+            </div>
+
+        </div>
+
+        <hr class="divider">
+
+        <h3 class="heading">Historial de inspiración</h3>
+
+        <div id="list" class="history"></div>
+
+        <button id="clear" class="clear-btn">Limpiar historial</button>
+
+        <div id="toast"></div>
+
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+
+</html>

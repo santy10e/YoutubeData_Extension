@@ -1,0 +1,128 @@
+body {
+    width: 420px;
+    background: #0d0f14;
+    color: #e7e9ef;
+    font-family: Inter, system-ui;
+}
+
+.panel {
+    padding: 14px 12px;
+}
+
+.heading {
+    margin: 6px 0 10px;
+    letter-spacing: .4px;
+}
+
+.card {
+    background: #141821;
+    border-radius: 14px;
+    padding: 10px;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, .35);
+}
+
+.thumb-row {
+    display: flex;
+    gap: 12px;
+}
+
+#thumb-preview {
+    width: 100%;
+    border-radius: 12px;
+}
+
+.thumb-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+button {
+    background: #1f2431;
+    border: 1px solid #2b3042;
+    color: #e7e9ef;
+    padding: 3px 3px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+button:disabled {
+    opacity: .35;
+    cursor: not-allowed;
+}
+
+button[data-tip] {
+    position: relative;
+}
+
+button[data-tip]:hover::after {
+    content: attr(data-tip);
+    position: absolute;
+    top: -24px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #000;
+    padding: 4px 8px;
+    font-size: 11px;
+    border-radius: 6px;
+}
+
+.meta-block {
+    margin-top: 10px;
+}
+
+.label {
+    opacity: .6;
+}
+
+.value {
+    font-weight: 600;
+}
+
+.keywords {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.kw {
+    background: #1b2131;
+    padding: 4px 8px;
+    border-radius: 8px;
+}
+
+.history .video {
+    background: #141821;
+    border-radius: 12px;
+    padding: 8px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.video img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+#toast {
+    position: fixed;
+    bottom: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #111;
+    padding: 6px 10px;
+    border-radius: 10px;
+    opacity: 0;
+    transition: opacity .25s ease;
+}
+
+.clear-btn {
+    margin-top: 8px;
+    width: 100%;
+}
+
+.divider {
+    border: 0;
+    border-top: 1px solid #2b3042;
+    margin: 12px 0;
+}

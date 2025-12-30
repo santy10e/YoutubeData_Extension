@@ -113,9 +113,31 @@ Su propósito es:
 Es responsabilidad del usuario cumplir los términos de uso de la plataforma.
 
 ---
-## 📸 Screenshot
-![alt text](1.png)
-![alt text](2.png)
+### 🔍 Panel principal — Vista de análisis del video
+
+Presenta:
+
+- Miniatura del video en HQ / MaxRes
+- Título y canal
+- Fecha de publicación
+- Keywords en formato de etiquetas
+- Acciones rápidas de copia e inspección
+
+![Panel principal de la extensión](img/1.png)
+
+---
+
+### 🧩 Historial de inspiración — Biblioteca de videos analizados
+
+Cada video visitado se almacena de forma local para su consulta posterior.
+
+Permite:
+
+- Alternar entre referencias
+- Cargar video en el panel principal
+- Revisar métricas creativas
+
+![Historial de inspiración](img/2.png)
 
 ---
 

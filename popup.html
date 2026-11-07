@@ -1,86 +1,147 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 
 <head>
     <meta charset="utf-8" />
-    <title>Inspiraciones para Youtube</title>
+    <meta name="color-scheme" content="dark light" />
+    <title>Metadata &amp; Keywords Analyzer</title>
     <link rel="stylesheet" href="popup.css" />
 </head>
 
 <body>
-
-    <div class="panel">
-
-        <h2 class="heading">Inspiraciones para Youtube</h2>
-
-        <div id="video-meta" class="card">
-
-            <div class="thumb-row">
-                <img id="thumb-preview" />
-
-                <!-- <div class="thumb-actions">
-                    <button id="btn-maxres" disabled data-tip="Descargar miniatura MaxRes">MaxRes</button>
-                    <button id="btn-hq" disabled data-tip="Descargar miniatura HQ">HQ</button>
-                </div>
-                -->
-            </div>
-
-            <div class="meta-block">
-                <div class="label">Título</div>
-                <div id="meta-title" class="value"></div>
-            </div>
-
-            <div class="meta-block">
-                <div class="label">Canal</div>
-                <div id="meta-channel" class="value"></div>
-            </div>
-
-            <div class="meta-block">
-                <div class="label">Upload</div>
-                <div id="meta-date" class="value"></div>
-            </div>
-
-            <div>
-                <div class="keywords-row">
-                    <div class="label"></div>
-                    <button id="btn-copy-keywords"></button>
-                </div>
-            </div>
-
-            <hr class="divider">
-
-            <div id="keywords-list" class="keywords"></div>
-
-            <hr class="divider">
-
-            <div class="actions-footer">
-                <button id="btn-copy-meta">
-                    Copiar Keywords
-                </button>
-
-                <button id="btn-description">
-                    Ver Descripción
-                </button>
-
-                <button id="btn-tech">
-                    Ver Metadata Técnica
-                </button>
-            </div>
-
+    <header class="app-header">
+        <img src="icons/icon48.png" alt="" class="app-logo" width="28" height="28" />
+        <div class="app-title">
+            <h1>Metadata &amp; Keywords</h1>
+            <p>Inspiración para YouTube</p>
         </div>
+    </header>
 
-        <hr class="divider">
+    <nav class="tabs" role="tablist" aria-label="Secciones">
+        <button type="button" role="tab" id="tab-video" class="tab" aria-controls="view-video" aria-selected="true">
+            Video
+        </button>
+        <button type="button" role="tab" id="tab-history" class="tab" aria-controls="view-history"
+            aria-selected="false" tabindex="-1">
+            Historial <span id="history-count" class="count">0</span>
+        </button>
+    </nav>
 
-        <h3 class="heading">Historial de inspiración</h3>
+    <main>
+        <!-- ============ VIDEO ============ -->
+        <section id="view-video" class="view" role="tabpanel" aria-labelledby="tab-video">
 
-        <div id="list" class="history"></div>
+            <div id="state-empty" class="empty-state" hidden>
+                <span class="empty-icon" data-icon="play"></span>
+                <h2>Aún no hay videos</h2>
+                <p>Abre cualquier video de YouTube y su metadata aparecerá aquí automáticamente.</p>
+                <a class="btn btn-primary" href="https://www.youtube.com/" target="_blank" rel="noopener">
+                    Abrir YouTube
+                </a>
+            </div>
 
-        <button id="clear" class="clear-btn">Limpiar historial</button>
+            <div id="state-loading" class="empty-state" hidden>
+                <span class="spinner" aria-hidden="true"></span>
+                <p>Capturando metadata del video…</p>
+            </div>
 
-        <div id="toast"></div>
+            <article id="video-card" class="video-card" hidden>
+                <p id="video-context" class="context"></p>
 
+                <figure class="thumb">
+                    <img id="thumb" alt="" />
+                    <span id="badge-live" class="badge badge-live" hidden>EN VIVO</span>
+                    <span id="badge-duration" class="badge badge-duration" hidden></span>
+                    <button type="button" id="btn-download-thumb" class="thumb-action" disabled
+                        aria-label="Descargar miniatura en máxima resolución">
+                        <span data-icon="download"></span><span>Miniatura</span>
+                    </button>
+                </figure>
+
+                <h2 class="video-title">
+                    <a id="video-title" target="_blank" rel="noopener" title="Abrir en YouTube"></a>
+                </h2>
+                <a id="video-channel" class="video-channel" target="_blank" rel="noopener"></a>
+                <ul id="video-stats" class="stats"></ul>
+
+                <section class="section" aria-labelledby="kw-heading">
+                    <div class="section-head">
+                        <h3 id="kw-heading">Keywords <span id="kw-count" class="count"></span></h3>
+                        <button type="button" id="btn-copy-keywords" class="btn btn-sm">
+                            <span data-icon="copy"></span>Copiar todas
+                        </button>
+                    </div>
+                    <div id="keywords" class="chips"></div>
+                    <p id="kw-hint" class="hint">Clic en una keyword para copiarla.</p>
+                </section>
+
+                <div class="actions">
+                    <button type="button" id="btn-copy-title" class="btn">
+                        <span data-icon="copy"></span>Copiar título
+                    </button>
+                    <button type="button" id="btn-copy-summary" class="btn btn-primary"
+                        title="Título, canal, URL, fecha, duración, vistas y keywords en texto plano">
+                        <span data-icon="clipboard"></span>Copiar ficha completa
+                    </button>
+                </div>
+
+                <details id="details-description" class="disclosure">
+                    <summary><span data-icon="chevron"></span>Descripción</summary>
+                    <div class="disclosure-body">
+                        <div class="disclosure-actions">
+                            <button type="button" id="btn-copy-description" class="btn btn-sm">
+                                <span data-icon="copy"></span>Copiar
+                            </button>
+                        </div>
+                        <pre id="video-description" class="text-block"></pre>
+                    </div>
+                </details>
+
+                <details class="disclosure">
+                    <summary><span data-icon="chevron"></span>Metadata técnica (JSON)</summary>
+                    <div class="disclosure-body">
+                        <div class="disclosure-actions">
+                            <button type="button" id="btn-copy-json" class="btn btn-sm">
+                                <span data-icon="copy"></span>Copiar
+                            </button>
+                            <button type="button" id="btn-download-json" class="btn btn-sm">
+                                <span data-icon="download"></span>Descargar .json
+                            </button>
+                        </div>
+                        <pre id="video-json" class="text-block code"></pre>
+                    </div>
+                </details>
+            </article>
+        </section>
+
+        <!-- ============ HISTORIAL ============ -->
+        <section id="view-history" class="view" role="tabpanel" aria-labelledby="tab-history" hidden>
+            <label class="search">
+                <span data-icon="search"></span>
+                <input id="search" type="search" placeholder="Buscar por título, canal o keyword"
+                    aria-label="Buscar en el historial" autocomplete="off" />
+            </label>
+
+            <ul id="history-list" class="history"></ul>
+            <p id="history-empty" class="empty-small" hidden></p>
+
+            <div class="history-footer">
+                <button type="button" id="btn-export" class="btn">
+                    <span data-icon="download"></span>Exportar JSON
+                </button>
+                <button type="button" id="btn-clear" class="btn btn-danger">
+                    <span data-icon="trash"></span><span class="label">Limpiar historial</span>
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <div id="toast" class="toast" role="status" aria-live="polite">
+        <span id="toast-text"></span>
+        <button type="button" id="toast-action" class="toast-action" hidden></button>
     </div>
 
+    <script src="utils.js"></script>
     <script src="popup.js"></script>
 </body>
 

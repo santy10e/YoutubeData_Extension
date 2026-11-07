@@ -1,12 +1,14 @@
 {
     "manifest_version": 3,
-    "name": "Extractor de Metadatos de YouTube",
-    "version": "1.0",
+    "name": "Metadata & Keywords Analyzer para YouTube",
+    "short_name": "YT Metadata",
+    "description": "Captura título, miniatura, keywords y metadata de los videos de YouTube que visitas y guárdalos como inspiración.",
+    "version": "1.1.0",
+    "minimum_chrome_version": "102",
     "permissions": [
-        "tabs",
         "storage",
-        "activeTab",
-        "downloads"
+        "downloads",
+        "scripting"
     ],
     "host_permissions": [
         "https://www.youtube.com/*"
@@ -17,9 +19,10 @@
                 "https://www.youtube.com/*"
             ],
             "js": [
+                "utils.js",
                 "content.js"
             ],
-            "run_at": "document_end"
+            "run_at": "document_idle"
         }
     ],
     "background": {
@@ -27,19 +30,18 @@
     },
     "icons": {
         "16": "icons/icon16.png",
+        "32": "icons/icon32.png",
         "48": "icons/icon48.png",
         "128": "icons/icon128.png"
     },
     "action": {
-        "default_title": "Metadata Extractor",
+        "default_title": "Metadata & Keywords Analyzer",
         "default_popup": "popup.html",
         "default_icon": {
             "16": "icons/icon16.png",
+            "32": "icons/icon32.png",
             "48": "icons/icon48.png",
             "128": "icons/icon128.png"
         }
-    },
-    "matches": [
-        "https://www.youtube.com/watch*"
-    ]
+    }
 }
